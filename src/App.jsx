@@ -1,15 +1,15 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./components/Home";
-import Ping from "./components/Ping";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import QuizForm from "./pages/QuizForm";
+import QuizResult from "./pages/QuizResult";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/ping" element={<Ping />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/quiz" element={<QuizForm />} />
+      <Route path="/result/:quizId" element={<QuizResult />} />
+    </Routes>
   );
 }
 
