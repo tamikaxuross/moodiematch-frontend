@@ -2,7 +2,7 @@ import "../App.css";
 import PageWrapper from "../components/PageWrapper";
 
 export default function Home() {
-  console.log("🏠 Home component is rendering");
+  console.log(" Home component is rendering");
 
 
   return (
