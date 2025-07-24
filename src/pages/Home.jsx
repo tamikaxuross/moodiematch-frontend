@@ -1,13 +1,14 @@
 import "../App.css";
+import PageWrapper from "../components/PageWrapper";
 
 export default function Home() {
   console.log("🏠 Home component is rendering");
 
 
   return (
-    <div className="container">
-      <h1>Welcome to MoodieMatch</h1>
-      <p>This is the home page.</p>
-    </div>
+    <PageWrapper>
+      <h1 className="text-4xl font-bold mb-2 text-center">Welcome to MoodieMatch</h1>
+      <p className="text-gray-700 text-center">This is the home page.</p>
+    </PageWrapper>
   );
 }
