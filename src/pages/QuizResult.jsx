@@ -34,11 +34,10 @@ export default function QuizResult() {
       <div className="text-center">
         <h2 className="text-2xl font-bold mb-4">Your Movie Match</h2>
       {movie ? (
-        <div className="bg-indigo-100 p-6 rounded-lg shadow-md inline-block">
+        <div className="bg-indigo-100 p-6 rounded-xl shadow-md max-w-md mx-auto">
             <h3 className="text-xl font-semibold mb-2">{movie.title}</h3>
-          <h3>{movie.title}</h3>
-          <p><strong>Genre:</strong> {movie.genre}</p>
-          <p><strong>Release Year:</strong> {movie.release_year}</p>
+            <p><strong>Genre:</strong> {movie.genre}</p>
+            <p><strong>Release Year:</strong> {movie.release_year}</p>
         </div>
       ) : (
         <p className="text-gray-600">Loading movie match...</p>
