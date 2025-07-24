@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createQuiz } from "../services/api";
+import "../styles/QuizForm.css";
 
 const QuizForm = () => {
   const [answers, setAnswers] = useState(["", "", ""]);
@@ -19,6 +20,9 @@ const QuizForm = () => {
 
     try {
       const response = await createQuiz({ user_id, answers });
+      console.log("quiz_id:", response.data.quiz_id);
+      console.log("movie:", response.data.movie);
+
       const quizId = response.data.quiz_id;
 
       // Redirect to result page using the quiz ID from the backend
@@ -30,7 +34,7 @@ const QuizForm = () => {
   };
 
   return (
-    <div>
+    <div className="quiz-form-container">
       <h2>MoodieMatch Quiz</h2>
       <form onSubmit={handleSubmit}>
         {[
