@@ -23,7 +23,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/start" element={<Start setUser={setUser} />} />
       <Route path="/quiz" element={<QuizForm user={user} />} />
-      <Route path="/result/:quizId" element={<QuizResult user={user} />} />
+      <Route path="/result/:quizId" element={<QuizResults />} />
     </Routes>
   </>
   );

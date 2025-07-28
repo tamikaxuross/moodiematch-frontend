@@ -5,44 +5,56 @@ import PageWrapper from "../components/PageWrapper";
 import "../styles/QuizResult.css";
 
 
-export default function QuizResult() {
+const QuizResults = () => {
   const { quizId } = useParams();
   const [movie, setMovie] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    getQuiz(quizId)
-      .then((res) => {
-        setMovie(res.data.movie);
-      })
-      .catch((err) => {
+    const fetchResult = async () => {
+      try {
+        const data = await getQuiz(quizId);
+        setMovie(data.movie);
+      } catch (err) {
         console.error("Error fetching quiz result:", err);
-        setError("Could not load movie recommendation.");
-      });
+        setError("Oops! We couldn't fetch your Moodie Match.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchResult();
   }, [quizId]);
 
-  if (error) {
-   return (
-    <PageWrapper>
-        <p className="text-red-600 text-center">{error}</p>
-      </PageWrapper>
-    );
-  }
+  if (loading) return <p className="text-center text-purple-600 mt-10">🔮 Retrieving your magical Moodie Match...</p>;
+  if (error) return <p className="text-center text-red-600 mt-10">❌ {error}</p>;
+
 
   return (
     <PageWrapper>
-      <div className="text-center">
-        <h2 className="text-2xl font-bold mb-4">Your Movie Match</h2>
-      {movie ? (
-        <div className="bg-indigo-100 p-6 rounded-xl shadow-md max-w-md mx-auto">
-            <h3 className="text-xl font-semibold mb-2">{movie.title}</h3>
-            <p><strong>Genre:</strong> {movie.genre}</p>
-            <p><strong>Release Year:</strong> {movie.release_year}</p>
+      <div className="max-w-2xl mx-auto p-6 mt-8 bg-white rounded-xl shadow-lg border border-purple-200">
+        <h2 className="text-3xl font-bold text-purple-700 text-center mb-6">✨ Your Moodie Match ✨</h2>
+
+        <div className="flex flex-col items-center text-center">
+          {movie.poster ? (
+            <img
+              src={`https://image.tmdb.org/t/p/w500${movie.poster}`}
+              alt={`Poster for ${movie.title}`}
+              className="rounded-lg shadow-md mb-4 max-w-xs"
+            />
+          ) : (
+            <div className="w-64 h-96 bg-purple-100 rounded-lg shadow-md mb-4 flex items-center justify-center text-purple-400 italic">
+              No poster available
+            </div>
+          )}
+
+          <h3 className="text-2xl font-semibold text-indigo-800 mb-2">{movie.title}</h3>
+          <p className="text-gray-700 italic px-2">{movie.overview}</p>
         </div>
-      ) : (
-        <p className="text-gray-600">Loading movie match...</p>
-        )}
       </div>
     </PageWrapper>
   );
-}
+};
+
+export default QuizResults;
