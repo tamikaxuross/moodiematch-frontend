@@ -44,7 +44,7 @@ const QuizForm = () => {
   ];
 
   const handleChange = (key, value) => {
-  setAnswers(prev => ({ ...prev, [key]: value }));
+    setAnswers(prev => ({ ...prev, [key]: value }));
 };
 
   const handleSubmit = async (e) => {
@@ -59,10 +59,11 @@ const QuizForm = () => {
 
     try {
       const response = await createQuiz({ user_id, answers: formattedAnswers });
-      navigate(`/result/${response.data.quiz_id}`);
+      navigate(`/result/${response.quiz_id}`);
+
     } catch (err) {
       console.error("Quiz error:", err);
-      alert("Something went wrong. Try again.");
+      alert("Oops! Something went wrong. Please try again.");
     }
   };
 
