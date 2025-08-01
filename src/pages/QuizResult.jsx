@@ -27,8 +27,8 @@ const QuizResults = () => {
     fetchResult();
   }, [quizId]);
 
-  if (loading) return <p className="text-center text-purple-600 mt-10">🔮 Retrieving your magical Moodie Match...</p>;
-  if (error) return <p className="text-center text-red-600 mt-10">❌ {error}</p>;
+  if (loading) return <p className="text-center text-purple-600 mt-10">Retrieving your magical Moodie Match...</p>;
+  if (error) return <p className="text-center text-red-600 mt-10">{error}</p>;
 
 
   return (
@@ -39,8 +39,8 @@ const QuizResults = () => {
         <div className="flex flex-col items-center text-center">
           {movie.poster ? (
             <img
-              src={`https://image.tmdb.org/t/p/w500${movie.poster}`}
-              alt={`Poster for ${movie.title}`}
+              src={movie.poster}
+             alt={`Poster for ${movie.title}`}
               className="rounded-lg shadow-md mb-4 max-w-xs"
             />
           ) : (
