@@ -1,0 +1,27 @@
+/* styles/Footer.css */
+
+.footer {
+  background-color: #f3e8ff; /* soft pastel lavender */
+  padding: 1rem 0;
+  text-align: center;
+  margin-top: 2rem;
+  border-top: 2px solid #e0d4f7;
+  color: #5c4b7d;
+  font-size: 0.95rem;
+}
+
+.footer-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.footer-links a {
+  color: #9f7aea;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}

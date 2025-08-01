@@ -7,6 +7,7 @@ import QuizForm from "./pages/QuizForm";
 import QuizResult from "./pages/QuizResult";
 import Start from "./pages/Start";
 
+import Footer from "./components/Footer";
 
 function App() {
   const [user, setUser] = useState("");
@@ -25,6 +26,7 @@ function App() {
       <Route path="/quiz" element={<QuizForm user={user} />} />
       <Route path="/result/:quizId" element={<QuizResult />} />
     </Routes>
+    <Footer />
   </>
   );
 }
