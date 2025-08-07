@@ -17,7 +17,7 @@ export default function NavBar({ user }) {
         </ul>
 
         {user && (
-          <div className="navbar-user">Welcome, {user}!</div>
+          <div className="navbar-user">Welcome, {user.username}!</div>
         )}
       </div>
     </nav>

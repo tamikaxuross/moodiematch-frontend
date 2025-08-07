@@ -6,15 +6,25 @@ import Home from "./pages/Home";
 import QuizForm from "./pages/QuizForm";
 import QuizResult from "./pages/QuizResult";
 import Start from "./pages/Start";
-
 import Footer from "./components/Footer";
+import Watchlist from "./pages/Watchlist";
 
 function App() {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const savedUser = localStorage.getItem("username");
-    if (savedUser) setUser(savedUser);
+    const savedUser = localStorage.getItem("user");
+    if (savedUser) {
+      try {
+        const parsedUser = JSON.parse(savedUser);
+        console.log("👤 Restored user:", parsedUser);
+        setUser(parsedUser);
+      } catch (error) {
+        console.error("Failed to parse saved user:", error);
+        localStorage.removeItem("user"); // Clean up bad data
+        
+      }
+    }
   }, []);
 
   return (
@@ -25,6 +35,7 @@ function App() {
       <Route path="/start" element={<Start setUser={setUser} />} />
       <Route path="/quiz" element={<QuizForm user={user} />} />
       <Route path="/result/:quizId" element={<QuizResult />} />
+      <Route path="/watchlist" element={<Watchlist />} />
     </Routes>
     <Footer />
   </>
