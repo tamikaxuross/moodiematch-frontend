@@ -27,6 +27,14 @@ function App() {
     }
   }, []);
 
+  // Update localStorage whenever user state changes
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("user", JSON.stringify(user));
+    }
+  }, [user]);
+
+
   return (
   <>
     <NavBar user={user} />
@@ -34,8 +42,8 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/start" element={<Start setUser={setUser} />} />
       <Route path="/quiz" element={<QuizForm user={user} />} />
-      <Route path="/result/:quizId" element={<QuizResult />} />
-      <Route path="/watchlist" element={<Watchlist />} />
+      <Route path="/result/:quizId" element={<QuizResult user={user} />} />
+      <Route path="/watchlist" element={<Watchlist user={user} />} />
     </Routes>
     <Footer />
   </>

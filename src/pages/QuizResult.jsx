@@ -6,7 +6,25 @@ import FavoriteButton from "../components/FavoriteButton";
 import "../styles/QuizResult.css";
 
 
-const QuizResults = ({ user }) => {
+const QuizResults = ({ user: propUser }) => {
+  // Get user from localStorage if not passed as prop, with fallback handling
+  const [user, setUser] = useState(propUser);
+  
+  useEffect(() => {
+    if (!propUser) {
+      const savedUser = localStorage.getItem("user");
+      if (savedUser) {
+        try {
+          setUser(JSON.parse(savedUser));
+        } catch (error) {
+          console.error("Failed to parse saved user:", error);
+        }
+      }
+    } else {
+      setUser(propUser);
+    }
+  }, [propUser]);
+
   const { quizId } = useParams();
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -62,6 +80,7 @@ const QuizResults = ({ user }) => {
 
           <h3 className="text-2xl font-semibold text-indigo-800 dark:text-indigo-300 mb-2">{movie.title}</h3>
           <p className="text-gray-700 dark:text-gray-300 italic px-2 mb-6 max-w-lg">{movie.overview}</p>
+
            <div className="space-y-4">
             <FavoriteButton 
               user={user} 
@@ -69,7 +88,7 @@ const QuizResults = ({ user }) => {
               onFavoriteChange={handleFavoriteChange}
             />
             
-            {/* Optional: Add other actions */}
+           
             <div className="flex gap-4 mt-4">
               <button 
                 onClick={() => window.location.href = "/quiz"}
