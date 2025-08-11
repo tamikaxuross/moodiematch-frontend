@@ -10,7 +10,7 @@ export default function Home() {
 
   useEffect(() => {
   const apiKey = import.meta.env.VITE_TMDB_KEY;
-  const randomPage = Math.floor(Math.random() * 10) + 1; // page 1–10 k
+  const randomPage = Math.floor(Math.random() * 10) + 1; 
 
   fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${randomPage}`)
     .then((res) => res.json())
@@ -19,7 +19,7 @@ export default function Home() {
         .filter((movie) =>
           !movie.adult &&                        // no NSFW
           movie.poster_path &&                   // must have poster
-          movie.original_language === "en"       // avoid obscure titles
+          movie.original_language === "en"       // avoid titles
         )
         .slice(0, 8); // limit to 8
 

@@ -22,7 +22,6 @@ function App() {
       } catch (error) {
         console.error("Failed to parse saved user:", error);
         localStorage.removeItem("user"); // Clean up bad data
-        
       }
     }
   }, []);
@@ -34,19 +33,18 @@ function App() {
     }
   }, [user]);
 
-
   return (
-  <>
-    <NavBar user={user} />
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/start" element={<Start setUser={setUser} />} />
-      <Route path="/quiz" element={<QuizForm user={user} />} />
-      <Route path="/result/:quizId" element={<QuizResult user={user} />} />
-      <Route path="/watchlist" element={<Watchlist user={user} />} />
-    </Routes>
-    <Footer />
-  </>
+    <>
+      <NavBar user={user} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/start" element={<Start setUser={setUser} />} />
+        <Route path="/quiz" element={<QuizForm user={user} />} />
+        <Route path="/result/:quizId" element={<QuizResult user={user} />} />
+        <Route path="/watchlist" element={<Watchlist user={user} />} />
+      </Routes>
+      <Footer />
+    </>
   );
 }
 

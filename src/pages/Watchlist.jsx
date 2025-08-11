@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 import PageWrapper from "../components/PageWrapper";
 import "../styles/WatchList.css";
 
-const Watchlist = ({ user: propUser }) => { // Accept user prop
+const Watchlist = ({ user: propUser }) => {
   const [user, setUser] = useState(propUser);
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  
   const apiBase = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/api";
 
   // Get user from localStorage if not passed as prop
@@ -66,7 +65,6 @@ const Watchlist = ({ user: propUser }) => { // Accept user prop
     }
   };
 
-  // Early return AFTER all hooks
   if (!user) {
     return (
       <PageWrapper>
@@ -91,6 +89,7 @@ const Watchlist = ({ user: propUser }) => { // Accept user prop
       </PageWrapper>
     );
   }
+
   return (
     <PageWrapper>
       <div className="watchlist-container">
@@ -98,28 +97,49 @@ const Watchlist = ({ user: propUser }) => { // Accept user prop
         <p className="text-center text-gray-600 mb-6">
           Welcome back, {user.username}! Here are your saved movies.
         </p>
-
+        
         {favorites.length === 0 ? (
-          <p className="watchlist-empty">Your watchlist is empty.</p>
+          <div className="text-center py-12">
+            <div className="text-6xl mb-4">🎬</div>
+            <p className="watchlist-empty text-lg">Your watchlist is empty.</p>
+            <p className="text-gray-500 mb-6">Take a quiz to discover movies and add them to your watchlist!</p>
+            <button 
+              onClick={() => window.location.href = "/quiz"}
+              className="bg-purple-500 text-white px-6 py-3 rounded-lg hover:bg-purple-600 transition"
+            >
+              Take Quiz
+            </button>
+          </div>
         ) : (
           <div className="watchlist-grid">
             {favorites.map((movie) => (
               <div key={movie.id} className="watchlist-card">
-                <img
-                  src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
-                  alt={movie.title}
-                  className="watchlist-poster"
-                  onError={(e) => {
-                    e.target.src = "https://via.placeholder.com/300x450/f3e8ff/7c3aed?text=No+Poster";
-                  }}
-                />
-                <p className="watchlist-movie-title">{movie.title}</p>
-                <button
-                  onClick={() => removeFromWatchlist(movie.movie_id)}
-                  className="remove-btn"
-                >
-                  Remove
-                </button>
+                <div className="relative">
+                  <img
+                    src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
+                    alt={movie.title}
+                    className="watchlist-poster"
+                    onError={(e) => {
+                      e.target.src = "https://via.placeholder.com/300x450/f3e8ff/7c3aed?text=No+Poster";
+                    }}
+                  />
+                </div>
+                <div className="p-4">
+                  <p className="watchlist-movie-title font-semibold text-gray-800 mb-2">
+                    {movie.title}
+                  </p>
+                  {movie.overview && (
+                    <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                      {movie.overview}
+                    </p>
+                  )}
+                  <button
+                    onClick={() => removeFromWatchlist(movie.movie_id)}
+                    className="remove-btn w-full"
+                  >
+                    Remove from Watchlist
+                  </button>
+                </div>
               </div>
             ))}
           </div>

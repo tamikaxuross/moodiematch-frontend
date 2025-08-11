@@ -84,7 +84,7 @@ const QuizForm = ({ user }) => {
     try {
       console.log("🎭 Submitting quiz for user:", user.id);
       const response = await createQuiz({ 
-        user_id: user.id,  // FIXED: Use actual user ID instead of hardcoded 1
+        user_id: user.id,  
         answers: formattedAnswers 
       });
       console.log("✅ Quiz created:", response.quiz_id);

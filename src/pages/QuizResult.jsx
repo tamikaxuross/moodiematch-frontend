@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getQuiz } from "../services/api";
-import PageWrapper from "../components/PageWrapper";
 import FavoriteButton from "../components/FavoriteButton";
 import "../styles/QuizResult.css";
 
-
 const QuizResults = ({ user: propUser }) => {
-  // Get user from localStorage if not passed as prop, with fallback handling
+  // Get user from localStorage since it's not being passed as prop consistently
   const [user, setUser] = useState(propUser);
   
   useEffect(() => {
@@ -24,9 +22,8 @@ const QuizResults = ({ user: propUser }) => {
       setUser(propUser);
     }
   }, [propUser]);
-
   const { quizId } = useParams();
-  const [movie, setMovie] = useState(null);
+  const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -34,7 +31,15 @@ const QuizResults = ({ user: propUser }) => {
     const fetchResult = async () => {
       try {
         const data = await getQuiz(quizId);
-        setMovie(data.movie);
+        
+        // If we have multiple movies, use them; otherwise create array with single movie
+        if (Array.isArray(data.movies)) {
+          setMovies(data.movies);
+        } else if (data.movie) {
+          setMovies([data.movie]);
+        } else {
+          setError("No movie recommendations found.");
+        }
       } catch (err) {
         console.error("Error fetching quiz result:", err);
         setError("Oops! We couldn't fetch your Moodie Match.");
@@ -46,69 +51,142 @@ const QuizResults = ({ user: propUser }) => {
     fetchResult();
   }, [quizId]);
 
-  const handleFavoriteChange = (isFavorited) => {
+  const handleFavoriteChange = (movieTitle, isFavorited) => {
     if (isFavorited) {
-      // Show success message or update UI
-      console.log(`🎉 ${movie.title} added to watchlist!`);
+      console.log(`🎉 ${movieTitle} added to watchlist!`);
     } else {
-      console.log(`👋 ${movie.title} removed from watchlist`);
+      console.log(`👋 ${movieTitle} removed from watchlist`);
     }
   };
 
-
-  if (loading) return <p className="text-center text-purple-600 mt-10">Retrieving your magical Moodie Match...</p>;
-  if (error) return <p className="text-center text-red-600 mt-10">{error}</p>;
-
+  if (loading) return (
+    <div className="flex justify-center items-center min-h-screen">
+      <p className="text-center text-purple-600 text-xl">🎬 Finding your perfect Moodie Matches...</p>
+    </div>
+  );
+  
+  if (error) return (
+    <div className="flex justify-center items-center min-h-screen">
+      <p className="text-center text-red-600 text-xl">{error}</p>
+    </div>
+  );
 
   return (
-    <PageWrapper>
-      <div className="max-w-2xl mx-auto p-6 mt-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-purple-200 dark:border-purple-600">
-        <h2 className="text-3xl font-bold text-purple-700 dark:text-purple-300 text-center mb-6">✨ Your Moodie Match ✨</h2>
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 py-8">
+      <div className="max-w-6xl mx-auto px-4">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-purple-700 mb-4">
+            ✨ Your Moodie Matches ✨
+          </h1>
+          <p className="text-lg text-gray-600">
+            {user ? `Hey ${user.username}! ` : ""}Here are some perfect movies for your current mood
+          </p>
+        </div>
 
-        <div className="flex flex-col items-center text-center">
-          {movie.poster ? (
-            <img
-              src={movie.poster}
-             alt={`Poster for ${movie.title}`}
-              className="rounded-lg shadow-md mb-4 max-w-xs"
-            />
-          ) : (
-            <div className="w-64 h-96 bg-purple-100 rounded-lg shadow-md mb-4 flex items-center justify-center text-purple-400 italic">
-              No poster available
+        {/* Movies Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          {movies.map((movie, index) => (
+            <div 
+              key={movie.id || index} 
+              className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+            >
+              {/* Movie Poster */}
+              <div className="relative">
+                {movie.poster ? (
+                  <img
+                    src={movie.poster}
+                    alt={`Poster for ${movie.title}`}
+                    className="w-full h-80 object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-80 bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center">
+                    <div className="text-center text-purple-400">
+                      <div className="text-4xl mb-2">🎬</div>
+                      <div className="text-sm">No poster available</div>
+                    </div>
+                  </div>
+                )}
+                
+                {/* Genre Badge */}
+                {movie.genres && movie.genres.length > 0 && (
+                  <div className="absolute top-4 left-4">
+                    <span className="bg-black bg-opacity-70 text-white px-3 py-1 rounded-full text-sm font-medium">
+                      {movie.genres[0]}
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              {/* Movie Info */}
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-gray-800 mb-2 line-clamp-2">
+                  {movie.title}
+                </h3>
+                
+                {/* Rating and Year */}
+                <div className="flex items-center gap-4 mb-3 text-sm text-gray-600">
+                  {movie.vote_average && (
+                    <div className="flex items-center gap-1">
+                      <span className="text-yellow-500">⭐</span>
+                      <span>{movie.vote_average.toFixed(1)}</span>
+                    </div>
+                  )}
+                  {movie.release_date && (
+                    <span>{new Date(movie.release_date).getFullYear()}</span>
+                  )}
+                </div>
+
+                {/* Genres */}
+                {movie.genres && movie.genres.length > 1 && (
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {movie.genres.slice(0, 3).map((genre, idx) => (
+                      <span 
+                        key={idx}
+                        className="bg-purple-100 text-purple-700 px-2 py-1 rounded-full text-xs font-medium"
+                      >
+                        {genre}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                {/* Description */}
+                <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
+                  {movie.overview || "No description available."}
+                </p>
+
+                {/* Favorite Button */}
+                <div className="flex justify-center">
+                  <FavoriteButton 
+                    user={user} 
+                    movie={movie}
+                    onFavoriteChange={(isFavorited) => handleFavoriteChange(movie.title, isFavorited)}
+                  />
+                </div>
+              </div>
             </div>
-          )}
+          ))}
+        </div>
 
-          <h3 className="text-2xl font-semibold text-indigo-800 dark:text-indigo-300 mb-2">{movie.title}</h3>
-          <p className="text-gray-700 dark:text-gray-300 italic px-2 mb-6 max-w-lg">{movie.overview}</p>
-
-           <div className="space-y-4">
-            <FavoriteButton 
-              user={user} 
-              movie={movie}
-              onFavoriteChange={handleFavoriteChange}
-            />
-            
-           
-            <div className="flex gap-4 mt-4">
-              <button 
-                onClick={() => window.location.href = "/quiz"}
-                className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition"
-              >
-                🎭 Take Another Quiz
-              </button>
-              
-              <button 
-                onClick={() => window.location.href = "/watchlist"}
-                className="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 transition"
-              >
-                📋 View My Watchlist
-              </button>
-            </div>
-          </div>
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <button 
+            onClick={() => window.location.href = "/quiz"}
+            className="px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full hover:from-purple-600 hover:to-pink-600 transition duration-200 font-semibold shadow-lg hover:shadow-xl"
+          >
+            🎭 Take Another Quiz
+          </button>
+          
+          <button 
+            onClick={() => window.location.href = "/watchlist"}
+            className="px-8 py-3 bg-white text-purple-700 border-2 border-purple-300 rounded-full hover:bg-purple-50 transition duration-200 font-semibold shadow-md hover:shadow-lg"
+          >
+            📋 View My Watchlist
+          </button>
         </div>
       </div>
-    </PageWrapper>
-
+    </div>
   );
 };
 
