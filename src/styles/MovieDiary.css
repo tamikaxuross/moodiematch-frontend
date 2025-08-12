@@ -1,0 +1,47 @@
+
+.diary-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fef7ff, #f0f9ff);
+  padding: 2rem 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.diary-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+
+.diary-container h1 {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #7c3aed !important;
+}
+
+.diary-container h3 {
+  font-weight: 600;
+  color: #7c3aed !important;
+}
+
+.diary-container label {
+  font-weight: 600;
+  color: #5b21b6 !important;
+}
+
+.diary-container p {
+  line-height: 1.6;
+}
+
+/* Form styling */
+.diary-container form {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.1);
+}
+
+/* Entry cards */
+.diary-container .bg-white {
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.08);
+  border: 1px solid #f3e8ff;
+}

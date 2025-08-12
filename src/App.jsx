@@ -8,6 +8,7 @@ import QuizResult from "./pages/QuizResult";
 import Start from "./pages/Start";
 import Footer from "./components/Footer";
 import Watchlist from "./pages/Watchlist";
+import MovieDiary from "./pages/MovieDiary";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -42,6 +43,7 @@ function App() {
         <Route path="/quiz" element={<QuizForm user={user} />} />
         <Route path="/result/:quizId" element={<QuizResult user={user} />} />
         <Route path="/watchlist" element={<Watchlist user={user} />} />
+        <Route path="/diary" element={<MovieDiary user={user} />} />
       </Routes>
       <Footer />
     </>
