@@ -1,48 +1,59 @@
-MoodieMatch Frontend
+# 🎬 MoodieMatch Frontend
+
 A React-based web application that recommends movies based on your current mood! Take a fun quiz and discover your perfect movie match.
 
- Features
+## 🌟 Features
 
-Mood-Based Quiz: Answer fun questions about your current vibe
-Movie Recommendations: Get personalized movie suggestions
-Watchlist: Save movies you want to watch later
-Movie Diary: Keep track of movies you've watched with ratings and notes
-Beautiful UI: Clean, modern interface with smooth animations
+- **Mood-Based Quiz**: Answer fun questions about your current vibe
+- **Movie Recommendations**: Get personalized movie suggestions
+- **Watchlist**: Save movies you want to watch later
+- **Movie Diary**: Keep track of movies you've watched with ratings and notes
+- **Beautiful UI**: Clean, modern interface with smooth animations
 
-Quick Start
-Prerequisites
+## 🚀 Quick Start
 
-Node.js (version 18 or higher)
-npm (comes with Node.js)
+### Prerequisites
+- Node.js (version 18 or higher)
+- npm (comes with Node.js)
 
-Installation
+### Installation
 
-Clone the repository
-git clone <your-frontend-repo-url>
-cd moodiematch-frontend
+1. **Clone the repository**
+   ```bash
+   git clone <your-frontend-repo-url>
+   cd moodiematch-frontend
+   ```
 
-Install dependencies
-npm install
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-Set up environment variables
-Create a .env file in the root directory:
-envVITE_BACKEND_URL=http://localhost:3000/api
-VITE_TMDB_KEY=your_tmdb_api_key_here
+3. **Set up environment variables**
+   Create a `.env` file in the root directory:
+   ```env
+   VITE_BACKEND_URL=http://localhost:3000/api
+   VITE_TMDB_KEY=your_tmdb_api_key_here
+   ```
 
-Start the development server
-npm run dev
+4. **Start the development server**
+   ```bash
+   npm run dev
+   ```
 
-Open your browser
-Navigate to http://localhost:5173
+5. **Open your browser**
+   Navigate to `http://localhost:5173`
 
-🛠️ Available Scripts
+## 🛠️ Available Scripts
 
-npm run dev - Start development server
-npm run build - Build for production
-npm run preview - Preview production build
-npm run lint - Run ESLint for code quality
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint for code quality
 
-📁 Project Structure
+## 📁 Project Structure
+
+```
 src/
 ├── components/          # Reusable UI components
 │   ├── FavoriteButton.jsx
@@ -67,54 +78,82 @@ src/
 ├── App.jsx            # Main application component
 ├── App.css            # Global styles
 └── main.jsx           # Application entry point
-🎯 How It Works
+```
 
-Start: Create an account with your name
-Quiz: Answer 6 fun questions about your mood
-Results: Get personalized movie recommendations
-Save: Add movies to your watchlist
-Track: Log watched movies in your diary
+## 🎯 How It Works
 
-🔧 Configuration
-Environment Variables
-VariableDescriptionRequiredVITE_BACKEND_URLBackend API URLYesVITE_TMDB_KEYTMDb API key for movie dataYes
-Getting TMDb API Key
+1. **Start**: Create an account with your name
+2. **Quiz**: Answer 6 fun questions about your mood
+3. **Results**: Get personalized movie recommendations
+4. **Save**: Add movies to your watchlist
+5. **Track**: Log watched movies in your diary
 
-Visit TMDb
-Create a free account
-Go to Settings → API
-Request an API key
-Copy your API key to the .env file
+## 🔧 Configuration
 
-Common Issues
-"Network Error" or API not working
+### Environment Variables
 
-Make sure the backend server is running
-Check that VITE_BACKEND_URL points to the correct backend URL
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `VITE_BACKEND_URL` | Backend API URL | Yes |
+| `VITE_TMDB_KEY` | TMDb API key for movie data | Yes |
 
-Movies not loading
+### Getting TMDb API Key
 
-Verify your TMDb API key is correct
-Check browser console for error messages
+1. Visit [TMDb](https://www.themoviedb.org/)
+2. Create a free account
+3. Go to Settings → API
+4. Request an API key
+5. Copy your API key to the `.env` file
 
-Styling issues
+## 🚨 Common Issues
 
-Clear browser cache
-Make sure all CSS files are properly imported
+### "Network Error" or API not working
+- Make sure the backend server is running
+- Check that `VITE_BACKEND_URL` points to the correct backend URL
 
- Responsive Design
+### Movies not loading
+- Verify your TMDb API key is correct
+- Check browser console for error messages
+
+### Styling issues
+- Clear browser cache
+- Make sure all CSS files are properly imported
+
+## 📱 Responsive Design
+
 The app is fully responsive and works on:
+- 💻 Desktop computers
+- 📱 Mobile phones
+- 🖥️ Tablets
 
-💻 Desktop computers
-📱 Mobile phones
-🖥️ Tablets
+## 🎨 Technologies Used
 
- Technologies Used
+- **React 19** - UI framework
+- **React Router** - Navigation
+- **Axios** - HTTP requests
+- **Vite** - Build tool
+- **CSS3** - Styling with custom properties
 
-React 19 - UI framework
-React Router - Navigation
-Axios - HTTP requests
-Vite - Build tool
-CSS3 - Styling with custom properties
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature-name`
+3. Make your changes
+4. Commit: `git commit -m 'Add feature'`
+5. Push: `git push origin feature-name`
+6. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 💡 Tips for Beginners
+
+- **First time with React?** Check out the [React documentation](https://react.dev/)
+- **New to JavaScript?** Try [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+- **Want to customize?** Start by modifying the CSS files in the `styles/` folder
+- **Need help?** Open an issue in the repository
+
+## 🎉 Enjoy discovering your perfect movie match!
 
 Created by @ Tamika Ross
