@@ -143,9 +143,6 @@ The app is fully responsive and works on:
 5. Push: `git push origin feature-name`
 6. Open a Pull Request
 
-## 📄 License
-
-This project is licensed under the MIT License.
 
 ## 💡 Tips for Beginners
 
